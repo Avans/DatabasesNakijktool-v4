@@ -1,0 +1,46 @@
+{
+  "name": "databases-nakijktool-v4",
+  "version": "4.0.0",
+  "description": "SQL-nakijktool voor Brightspace die volledig in de browser draait (SQLite/WASM)",
+  "scripts": {
+    "build:data": "node scripts/build-data.ts",
+    "build": "npm run build:data && vite build",
+    "dev": "npm run build && vite preview --port 5173",
+    "watch": "vite build --watch",
+    "test": "vitest run",
+    "verify": "node scripts/verify-assignments.ts",
+    "typecheck": "tsc --noEmit",
+    "import-v2": "node scripts/import-v2.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avans/DatabasesNakijktool-v4.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Avans/DatabasesNakijktool-v4/issues"
+  },
+  "homepage": "https://github.com/Avans/DatabasesNakijktool-v4#readme",
+  "dependencies": {
+    "@codemirror/autocomplete": "^6.20.4",
+    "@codemirror/commands": "^6.11.1",
+    "@codemirror/lang-sql": "^6.10.0",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.15",
+    "@lezer/highlight": "^1.2.5",
+    "sql.js": "^1.15.2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/sql.js": "^1.4.11",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.7",
+    "vitest": "^5.1.0"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22.18"
+  }
+}

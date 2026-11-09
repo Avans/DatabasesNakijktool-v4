@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SQL-oefeningen · Datab1</title>
+  <meta name="description" content="Alle SQL-opdrachten van Datab1. Je query wordt direct in je browser nagekeken.">
+  <link rel="stylesheet" href="site.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c8102e'/%3E%3Ctext x='16' y='21' font-family='monospace' font-size='13' font-weight='700' fill='white' text-anchor='middle'%3ESQL%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="./"><span class="mark">SQL</span> Datab1 nakijktool</a>
+      <nav>
+        <a href="./" aria-current="page">Opdrachten</a>
+        <a href="demo.html">Demo</a>
+        <a href="https://github.com/Avans/DatabasesNakijktool-v4">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <h1>SQL-opdrachten</h1>
+    <p class="lede">Kies een opdracht en schrijf je query. Hij wordt direct in je browser nagekeken op een eigen kopie van de oefendatabase. Wat je goed hebt, onthoudt deze browser.</p>
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="Zoek op opdrachtnummer of tekst…" aria-label="Zoek opdrachten">
+      <select id="db" aria-label="Database">
+        <option value="">Alle databases</option>
+      </select>
+      <span class="progress" id="progress"></span>
+    </div>
+    <div id="groups"><p class="empty">Opdrachten laden…</p></div>
+  </main>
+  <script type="module" src="site.js"></script>
+</body>
+</html>

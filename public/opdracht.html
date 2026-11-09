@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opdracht · Datab1</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c8102e'/%3E%3Ctext x='16' y='21' font-family='monospace' font-size='13' font-weight='700' fill='white' text-anchor='middle'%3ESQL%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="./"><span class="mark">SQL</span> Datab1 nakijktool</a>
+      <nav>
+        <a href="./">Opdrachten</a>
+        <a href="demo.html">Demo</a>
+        <a href="https://github.com/Avans/DatabasesNakijktool-v4">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <a class="back" href="./">← Alle opdrachten</a>
+    <div id="slot"></div>
+    <nav class="pager" id="pager" aria-label="Vorige en volgende opdracht"></nav>
+    <details class="embed" style="margin-top:32px">
+      <summary>Deze opdracht in Brightspace zetten</summary>
+      <p style="margin-top:10px">Plak dit in de HTML-bron van een Brightspace-pagina. Meerdere opdrachten op één pagina kan ook: herhaal dan alleen de <code>wd-datab1</code>-regel.</p>
+      <pre id="code"></pre>
+      <button class="copy" id="copy" type="button">Kopiëren</button>
+    </details>
+  </main>
+  <script>
+    (function () {
+      var aid = Number(new URLSearchParams(location.search).get('aid')) || 0;
+      var el = document.createElement('wd-datab1');
+      el.setAttribute('aid', String(aid));
+      document.getElementById('slot').append(el);
+      var src = new URL('datab1-component.js', location.href).href;
+      var code = '<wd-datab1 aid="' + aid + '"></wd-datab1>\n<script src="' + src + '"></' + 'script>';
+      document.getElementById('code').textContent = code;
+      document.getElementById('copy').addEventListener('click', function (e) {
+        navigator.clipboard.writeText(code).then(function () { e.target.textContent = 'Gekopieerd'; });
+      });
+      fetch('data/assignments.json').then(function (r) { return r.json(); }).then(function (all) {
+        var i = all.findIndex(function (a) { return a.id === aid; });
+        if (i === -1) return;
+        var a = all[i];
+        document.title = (a.title || 'Opdracht ' + a.metaTag) + ' · Datab1';
+        var pager = document.getElementById('pager');
+        var link = function (b, label) {
+          var x = document.createElement('a');
+          x.href = 'opdracht.html?aid=' + b.id;
+          x.textContent = label;
+          return x;
+        };
+        var prev = all[i - 1], next = all[i + 1];
+        pager.append(prev && Math.floor(prev.id / 100) === Math.floor(aid / 100) ? link(prev, '← ' + (prev.title || 'Opdracht ' + prev.metaTag)) : document.createElement('span'));
+        if (next && Math.floor(next.id / 100) === Math.floor(aid / 100)) pager.append(link(next, (next.title || 'Opdracht ' + next.metaTag) + ' →'));
+      });
+    })();
+  </script>
+  <script src="datab1-component.js"></script>
+</body>
+</html>
