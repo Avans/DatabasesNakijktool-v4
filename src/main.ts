@@ -3,10 +3,14 @@
 //   <wd-datab1 aid="21506"></wd-datab1>
 //   <script src="https://<host>/datab1-component.js"></script>
 //
+// In Brightspace's HTML editor, which strips unknown tags, write `[datab1 21506]` instead
+// (see placeholders.ts).
+//
 // Data and the SQLite WebAssembly file are loaded from the same place as this script,
 // unless window.NAKIJK_BASE_URL says otherwise.
 import { EngineClient } from './client.ts';
 import { defineDatab1 } from './component/datab1.ts';
+import { upgradePlaceholders } from './placeholders.ts';
 
 declare global {
   interface Window { NAKIJK_BASE_URL?: string }
@@ -20,3 +24,4 @@ const base = (() => {
 
 let client: EngineClient | null = null;
 defineDatab1(() => (client ??= new EngineClient(base)));
+upgradePlaceholders();

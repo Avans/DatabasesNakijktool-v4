@@ -4,3 +4,5 @@ dist/
 .env
 public/data/
 public/sql-wasm.wasm
+
+.vercel

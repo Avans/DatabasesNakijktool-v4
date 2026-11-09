@@ -24,7 +24,7 @@
     <nav class="pager" id="pager" aria-label="Vorige en volgende opdracht"></nav>
     <details class="embed" style="margin-top:32px">
       <summary>Deze opdracht in Brightspace zetten</summary>
-      <p style="margin-top:10px">Plak dit in de HTML-bron van een Brightspace-pagina. Meerdere opdrachten op één pagina kan ook: herhaal dan alleen de <code>wd-datab1</code>-regel.</p>
+      <p style="margin-top:10px">Plak dit in de HTML-bron van een Brightspace-pagina. De editor van Brightspace haalt onbekende tags weg, daarom staat de opdracht er als tekst: <code>[datab1 nummer]</code>. Meerdere opdrachten op één pagina kan ook: herhaal dan alleen die regel.</p>
       <pre id="code"></pre>
       <button class="copy" id="copy" type="button">Kopiëren</button>
     </details>
@@ -36,7 +36,7 @@
       el.setAttribute('aid', String(aid));
       document.getElementById('slot').append(el);
       var src = new URL('datab1-component.js', location.href).href;
-      var code = '<wd-datab1 aid="' + aid + '"></wd-datab1>\n<script src="' + src + '"></' + 'script>';
+      var code = '<p>[datab1 ' + aid + ']</p>\n<script src="' + src + '"></' + 'script>';
       document.getElementById('code').textContent = code;
       document.getElementById('copy').addEventListener('click', function (e) {
         navigator.clipboard.writeText(code).then(function () { e.target.textContent = 'Gekopieerd'; });
