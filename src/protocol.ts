@@ -17,7 +17,6 @@ export type Request =
   | { type: 'init'; base: string }
   | { type: 'assignment'; aid: number }
   | { type: 'grade'; aid: number; query: string }
-  | { type: 'run'; aid: number; query: string }
   | { type: 'expected'; aid: number }
   | { type: 'schema'; aid: number };
 
@@ -25,7 +24,6 @@ export interface ResponseMap {
   init: true;
   assignment: AssignmentInfo | null;
   grade: Verdict;
-  run: QueryResult;
   expected: QueryResult;
   schema: TableInfo[];
 }

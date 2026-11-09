@@ -37,7 +37,7 @@ export interface Editor {
   setSchema(tables: TableInfo[]): void;
 }
 
-export function createEditor(parent: HTMLElement, root: ShadowRoot, initial: string, onSubmit: () => void, onRun: () => void): Editor {
+export function createEditor(parent: HTMLElement, root: ShadowRoot, initial: string, onSubmit: () => void): Editor {
   const lang = new Compartment();
   const sqlLang = (tables: TableInfo[] = []) => sql({
     dialect: MySQL,
@@ -62,7 +62,6 @@ export function createEditor(parent: HTMLElement, root: ShadowRoot, initial: str
       EditorView.contentAttributes.of({ 'aria-label': 'SQL-query', spellcheck: 'false' }),
       keymap.of([
         { key: 'Mod-Enter', run: v => { closeCompletion(v); onSubmit(); return true; } },
-        { key: 'Shift-Enter', run: v => { closeCompletion(v); onRun(); return true; } },
         ...closeBracketsKeymap, ...defaultKeymap, ...historyKeymap, ...completionKeymap
       ])
     ]

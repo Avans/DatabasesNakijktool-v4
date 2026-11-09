@@ -106,11 +106,9 @@ export function defineDatab1(getClient: () => EngineClient) {
       const editorHost = el('div', 'editor');
       const actions = el('div', 'actions');
       const submit = el('button', 'btn primary', 'Nakijken') as HTMLButtonElement;
-      const run = el('button', 'btn', 'Uitvoeren') as HTMLButtonElement;
-      run.title = 'Voer je query uit zonder na te kijken';
       const hint = el('span', 'hint');
-      hint.innerHTML = `<kbd>${isMac ? '⌘' : 'Ctrl'}</kbd>+<kbd>Enter</kbd> nakijken · <kbd>Shift</kbd>+<kbd>Enter</kbd> uitvoeren`;
-      actions.append(submit, run, hint);
+      hint.innerHTML = `<kbd>${isMac ? '⌘' : 'Ctrl'}</kbd>+<kbd>Enter</kbd> nakijken`;
+      actions.append(submit, hint);
       const feedback = el('div', 'feedback');
       feedback.hidden = true;
       feedback.setAttribute('role', 'status');
@@ -120,11 +118,10 @@ export function defineDatab1(getClient: () => EngineClient) {
       body.append(editorHost, actions, feedback, result);
 
       card.append(head, tools, expectedBtn.panel, schemaBtn.panel, body);
-      Object.assign(this.els, { status, submit, run, feedback, result });
+      Object.assign(this.els, { status, submit, feedback, result });
 
-      this.editor = createEditor(editorHost, this.root, saved?.query ?? '', () => this.submit(), () => this.run());
+      this.editor = createEditor(editorHost, this.root, saved?.query ?? '', () => this.submit());
       submit.addEventListener('click', () => this.submit());
-      run.addEventListener('click', () => this.run());
 
       if (saved) this.showFeedback(saved.status, saved.message, saved.approvedAt ?? saved.timestamp);
       this.updateBadge(saved);
@@ -184,9 +181,7 @@ export function defineDatab1(getClient: () => EngineClient) {
     private setBusy(b: boolean, label?: string) {
       this.busy = b;
       const submit = this.els.submit as HTMLButtonElement;
-      const run = this.els.run as HTMLButtonElement;
       submit.disabled = b;
-      run.disabled = b;
       submit.textContent = b && label ? label : 'Nakijken';
     }
 
@@ -215,27 +210,7 @@ export function defineDatab1(getClient: () => EngineClient) {
       this.dispatchEvent(new CustomEvent('wd-graded', { bubbles: true, composed: true, detail: { aid: this.aid, status: verdict.status } }));
     }
 
-    private async run() {
-      if (this.busy || !this.editor) return;
-      const query = this.editor.getValue();
-      if (!query.trim()) return;
-      this.setBusy(true);
-      try {
-        const r = await getClient().request({ type: 'run', aid: this.aid, query }, QUERY_TIMEOUT_MS);
-        if (r.ok) {
-          (this.els.feedback as HTMLElement).hidden = true;
-          this.showResult(r, null, 'Resultaat (niet nagekeken)');
-        } else {
-          this.showFeedback(Status.Incorrect, r.message, undefined, 'Je query geeft een fout');
-          this.showResult(undefined, null, '');
-        }
-      } catch (e) {
-        this.showFeedback(Status.Incorrect, (e as Error).message, undefined, 'Je query geeft een fout');
-      }
-      this.setBusy(false);
-    }
-
-    private showFeedback(status: Status, message: string, timestamp?: string, titleOverride?: string) {
+    private showFeedback(status: Status, message: string, timestamp?: string) {
       const fb = this.els.feedback;
       fb.hidden = false;
       fb.replaceChildren();
@@ -248,7 +223,6 @@ export function defineDatab1(getClient: () => EngineClient) {
         text = when ? `Je hebt deze opdracht gemaakt op ${when}.` : message;
       } else if (status === Status.Rejected) { cls = 'error'; title = 'Niet nagekeken'; }
       else text = message + '\n\nPas je query aan en probeer het opnieuw.';
-      if (titleOverride) { title = titleOverride; text = message; cls = 'error'; }
       fb.className = 'feedback ' + cls;
       fb.append(el('div', 'title', title), el('p', '', text));
     }

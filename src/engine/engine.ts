@@ -68,10 +68,6 @@ export class Engine {
         const db = await this.db(a.schema);
         return grade(a, req.query, sql => runQuery(db, sql)) as Out;
       }
-      case 'run': {
-        const a = await this.assignment(req.aid);
-        return runQuery(await this.db(a.schema), normalizeQuery(req.query)) as Out;
-      }
       case 'expected': {
         const a = await this.assignment(req.aid);
         return runQuery(await this.db(a.schema), normalizeQuery(a.query)) as Out;
