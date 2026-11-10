@@ -2,7 +2,7 @@
 
 SQL-nakijktool voor de Datab1-opdrachten in Brightspace. Alles draait **in de browser van de student**:
 de oefendatabases zijn SQLite (WebAssembly), en het nakijken gebeurt lokaal. Er is geen server en
-geen database meer die uit kan vallen; Vercel serveert alleen statische bestanden.
+geen database meer die uit kan vallen; GitHub Pages serveert alleen statische bestanden.
 
 ## Gebruik in Brightspace
 
@@ -11,7 +11,7 @@ Precies dezelfde tag als in v2. Alleen de `src` van het script verandert:
 ```html
 <wd-datab1 aid="21506"></wd-datab1>
 <wd-datab1 aid="21507"></wd-datab1>
-<script src="https://<vercel-url>/datab1-component.js"></script>
+<script src="https://avans.github.io/DatabasesNakijktool-v4/datab1-component.js"></script>
 ```
 
 Meerdere opdrachten op één pagina delen één database-engine. Op de site zelf staan ook:
@@ -65,7 +65,7 @@ npm test             # unit tests (vitest)
 npx vitest run -t "HAVING"   # één test
 npm run verify       # alle modelantwoorden; exit 1 als er één faalt
 npm run typecheck
-npm run build        # dist/ = wat Vercel serveert
+npm run build        # dist/ = wat GitHub Pages serveert
 ```
 
 ### Data
@@ -91,5 +91,3 @@ op <https://avans.github.io/DatabasesNakijktool-v4/> (script:
 `https://avans.github.io/DatabasesNakijktool-v4/datab1-component.js`). GitHub Pages stuurt zelf
 `Access-Control-Allow-Origin: *` mee, dus Brightspace kan het script en de data laden.
 
-Vercel, gekoppeld aan deze repo. `vercel.json` bevat de build-instellingen en de CORS-headers,
-zodat Brightspace het script en de data van een ander domein mag laden.

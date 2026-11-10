@@ -1,8 +1,5 @@
 node_modules/
 dist/
-.vercel/
 .env
 public/data/
 public/sql-wasm.wasm
-
-.vercel

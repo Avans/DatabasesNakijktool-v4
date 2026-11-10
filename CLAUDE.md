@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 SQL grading tool for the Datab1 course, embedded in Brightspace as `<wd-datab1 aid="…">` plus one `<script>`.
 v4 runs entirely in the student's browser: SQLite via sql.js (WASM) in a web worker, with no backend.
-Vercel only serves static files. Talk Dutch with the user. UI copy and README are Dutch; code and comments are English.
+GitHub Pages only serves static files (`.github/workflows/pages.yml` deploys `dist/` on every push to `main`). Talk Dutch with the user. UI copy and README are Dutch; code and comments are English.
 
 ## Commands
 
