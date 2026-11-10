@@ -86,5 +86,10 @@ wachtwoorden uit de `connections`-tabel.
 
 ## Deploy
 
+GitHub Pages: elke push naar `main` bouwt en publiceert `dist/` via `.github/workflows/pages.yml`
+op <https://avans.github.io/DatabasesNakijktool-v4/> (script:
+`https://avans.github.io/DatabasesNakijktool-v4/datab1-component.js`). GitHub Pages stuurt zelf
+`Access-Control-Allow-Origin: *` mee, dus Brightspace kan het script en de data laden.
+
 Vercel, gekoppeld aan deze repo. `vercel.json` bevat de build-instellingen en de CORS-headers,
 zodat Brightspace het script en de data van een ander domein mag laden.
